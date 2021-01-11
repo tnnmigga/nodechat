@@ -4,7 +4,6 @@ import threading
 server_host = '127.0.0.1'
 server_port = 10086
 
-
 class Client:
     def __init__(self):
         self.port = None

@@ -1,5 +1,6 @@
 var net = require('net')
 
+var local_host = '127.0.0.1'
 var local_port = 10086
 var port_ind = 10087
 
@@ -51,7 +52,7 @@ var server = net.createServer(function (connection) {
 })
 
 
-server.listen(local_port, '127.0.0.1', () => {
+server.listen(local_port, local_host, () => {
     console.log('server is lisitening')
 })
 
