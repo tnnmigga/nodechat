@@ -30,17 +30,17 @@ class Client:
             connection.close()
 
     def recv_msg(self):
-        def receiver(recv_socket):
+        def receiver():
+            recv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            recv_socket.bind((self.host, self.port))
+            recv_socket.listen(5)
             while (True):
                 connection, _ = recv_socket.accept()
                 msg = connection.recv(1024).decode()
                 connection.close()
                 print(msg)
 
-        recv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        recv_socket.bind((self.host, self.port))
-        recv_socket.listen(5)
-        threading.Thread(target=receiver, args=(recv_socket,)).start()
+        threading.Thread(target=receiver).start()
 
     def send_msg(self):
         def sender():
