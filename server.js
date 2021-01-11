@@ -30,7 +30,7 @@ var server = net.createServer(function (connection) {
                     console.log('add user: ' + groups[2]);
                 }
                 else {
-                    connection.write('uname if exist')
+                    connection.write('uname exist')
                 }
             }
             else if (groups[1] == 'msg') {
