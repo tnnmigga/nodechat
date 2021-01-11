@@ -1,6 +1,5 @@
 import socket
 import threading
-import time
 
 server_host = '127.0.0.1'
 server_port = 8888
