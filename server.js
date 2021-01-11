@@ -1,6 +1,7 @@
 var net = require('net')
 
-var port_ind = 8889
+var local_port = 10086
+var port_ind = 10087
 
 var users = new Map()       // key: uname & value: address
 
@@ -25,7 +26,7 @@ var server = net.createServer(function (connection) {
             if (groups[1] == 'login') {
                 if (!users.has(groups[2])) {
                     connection.write('ok' + port_ind)
-                    users.set(groups[2], { port: port_ind, host: '127.0.0.1' })
+                    users.set(groups[2], { port: port_ind, host: connection.remoteAddress })
                     port_ind += 1
                     console.log('add user: ' + groups[2]);
                 }
@@ -34,8 +35,8 @@ var server = net.createServer(function (connection) {
                 }
             }
             else if (groups[1] == 'msg') {
-                transmit(groups[2], groups[3]).then(() => console.log('transmit: ' + groups[2] + '# ' + groups[3]))
-                // console.log('transmit: ' + groups[2] + '#' + groups[3])
+                transmit(groups[2], groups[3]).then(() => console.log('transmit => ' + groups[2] + ': ' + groups[3]))
+                // console.log('transmit => ' + groups[2] + ':' + groups[3])
             }
             else {
                 console.error('invalid command: ' + data)
@@ -50,12 +51,12 @@ var server = net.createServer(function (connection) {
 })
 
 
-server.listen(8888, '127.0.0.1', () => {
+server.listen(local_port, '127.0.0.1', () => {
     console.log('server is lisitening')
 })
 
 server.on('connection', (connection) => {
-    console.log('new connection: ', connection.address())
+    console.log('new connection => ' + connection.remoteAddress + ':' + connection.remotePort)
 })
 
 server.on('error', (error) => {

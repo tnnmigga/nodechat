@@ -2,7 +2,7 @@ import socket
 import threading
 
 server_host = '127.0.0.1'
-server_port = 8888
+server_port = 10086
 
 
 class Client:
@@ -50,6 +50,7 @@ class Client:
                 send_socket.send(('~%s~#~%s~#~%s~' %
                                   ('msg', self.uname, msg)).encode())
                 send_socket.close()
+
         threading.Thread(target=sender).start()
 
 
