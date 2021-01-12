@@ -49,6 +49,10 @@ var server = net.createServer(function (connection) {
         connection.end()
     })
 
+    connection.on('error', function (error) {
+        console.log('maybe user exit the client during the login process')
+    })
+
 })
 
 
